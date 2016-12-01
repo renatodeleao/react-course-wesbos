@@ -1,6 +1,6 @@
 import React from "react";
 
-//o var Header = function)
+//o var Header = function(){}
 const Header = (props) => {
 	return (
 		<header className="top">
