@@ -10,14 +10,16 @@ class StorePicker extends React.Component {
 	goToStore(event){
 		event.preventDefault();
 		// grab text from box
-		const value = this.storeInput.value;
-		console.log(value);
+		const storeId = this.storeInput.value;
+		console.log(`going to ${storeId}`);
+
 		// second go to store/storeID
+		this.context.router.transitionTo(`/store/${storeId}`);
 	}
 
 	render(){
 		return (
-			/* old school {this.goToStore.bind(this)}*/
+			/* old school onSubmit={this.goToStore.bind(this)} */
 			<form className="store-selector" onSubmit={(e) => this.goToStore(e)}>
 				{/* HTML Comment */}
 				<h2>Please Enter a Store</h2>
@@ -28,6 +30,10 @@ class StorePicker extends React.Component {
 			</form>
 		) 
 	}
+}
+
+StorePicker.contextTypes = {
+	router: React.PropTypes.object
 }
 
 export default StorePicker;
