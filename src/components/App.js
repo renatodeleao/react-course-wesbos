@@ -12,8 +12,10 @@ class App extends React.Component {
 
 		this.addFish = this.addFish.bind(this);
 		this.updateFish = this.updateFish.bind(this);
+		this.removeFish = this.removeFish.bind(this);
 		this.loadSamples = this.loadSamples.bind(this);
 		this.addToOrder = this.addToOrder.bind(this);
+		this.removeFromOrder = this.removeFromOrder.bind(this);
 		//get initial state
 		this.state = {
 			fishes: {},
@@ -69,6 +71,15 @@ class App extends React.Component {
 		});
 	}
 
+	removeFish(key){
+		const fishes = {...this.state.fishes};
+		fishes[key] = null; //firebase required
+
+		this.setState({
+			fishes: fishes
+		});
+	}
+
 	loadSamples(){
 		//shouldn't we copy the state here?
 		this.setState({
@@ -80,6 +91,17 @@ class App extends React.Component {
 		const order = {...this.state.order};
 		// updater or add fishes
 		order[key] = order[key] + 1 || 1;
+
+		//Update state
+		this.setState({
+			order: order
+		})
+	}
+
+	removeFromOrder(key) {
+		const order = {...this.state.order};
+		// remove
+		delete order[key]; //equal null if remove from firebase
 
 		//Update state
 		this.setState({
@@ -104,12 +126,14 @@ class App extends React.Component {
 					</ul>
 				</div>
 				<Order fishes={this.state.fishes}
-					    order={this.state.order} 
+					    order={this.state.order}
+					    removeFromOrder={this.removeFromOrder}  
 					    params={this.props.params} />
 				<Inventory 
 					fishes={this.state.fishes}
 					addFish={this.addFish}
-					updateFish={this.updateFish} 
+					updateFish={this.updateFish}
+					removeFish={this.removeFish}
 					loadSamples={this.loadSamples} />
 			</div>
 		) 

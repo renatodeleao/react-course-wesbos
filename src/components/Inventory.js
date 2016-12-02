@@ -14,7 +14,6 @@ class Inventory extends React.Component {
 		const updatedFish = {...fish, 
 			// dyanamic way to get what input is beeing changed based on the target.name 
 			[e.target.name]: e.target.value
-			
 		}
 
 		//app method
@@ -22,7 +21,7 @@ class Inventory extends React.Component {
 	}
 
 	renderInventory(key){
-		const { fishes } = this.props;
+		const { fishes, removeFish } = this.props;
 		const fish = fishes[key];
 
 		return (
@@ -35,6 +34,7 @@ class Inventory extends React.Component {
 				</select>
 				<textarea type="text" name="desc" value={fish.desc} placeholder="Fish desc" onChange={(e) => this.handleChange(e, key)} />
 				<input type="text" name="image" value={fish.image} placeholder="Fish image" onChange={(e) => this.handleChange(e, key)}/>
+				<button onClick={() => removeFish(key)}>Remove Fish</button>
 			</div>
 		);
 	}
